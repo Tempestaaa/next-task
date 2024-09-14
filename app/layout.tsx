@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/components/shared/sidebar";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ThemeProvider } from "@/components/shared/theme-provider";
+import { ContextProvider } from "@/app/provider/global-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,13 +20,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { userId } = auth();
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${montserrat.className} antialiased grid ${
+            userId && "grid-cols-[300px_1fr]"
+          } grid-rows-1 p-4 gap-x-8`}
+        >
+          <ContextProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {userId && <Sidebar />}
+              <ScrollArea className="rounded-md overflow-auto pr-4 max-h-full">
+                {children}
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+            </ThemeProvider>
+          </ContextProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
