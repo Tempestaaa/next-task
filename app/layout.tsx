@@ -3,10 +3,10 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/shared/sidebar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { ThemeProvider } from "@/components/shared/theme-provider";
-import { ContextProvider } from "@/app/provider/global-provider";
+import { ThemeProvider } from "@/provider/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import { ContextProvider } from "@/provider/provider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -31,18 +31,11 @@ export default function RootLayout({
           } grid-rows-1 p-4 gap-x-8`}
         >
           <ContextProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {userId && <Sidebar />}
-              <ScrollArea className="rounded-md overflow-auto pr-4 max-h-full">
-                {children}
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            </ThemeProvider>
+            {userId && <Sidebar />}
+            <ScrollArea className="rounded-md overflow-auto pr-4 max-h-full">
+              {children}
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
           </ContextProvider>
         </body>
       </html>

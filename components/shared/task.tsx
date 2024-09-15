@@ -16,14 +16,19 @@ interface Props {
 
 export default function Task({ item }: Props) {
   return (
-    <Card className="shadow-sm shadow-primary-foreground">
+    <Card className="shadow-sm shadow-primary-foreground bg-yellow-50">
       <CardHeader>
-        <Badge
-          variant="custom"
-          className="text-xs w-fit ml-auto cursor-default"
-        >
-          Active
-        </Badge>
+        <div className="flex gap-4 justify-between items-center">
+          <p className="text-xs text-gray-600">
+            {new Date(Date.now()).toISOString().split("T")[0]}
+          </p>
+          <Badge
+            variant="custom"
+            className="text-xs w-fit ml-auto cursor-default"
+          >
+            Active
+          </Badge>
+        </div>
         <CardTitle className="text-lg">Title {item + 1}</CardTitle>
         <CardDescription>Description {item + 1}</CardDescription>
       </CardHeader>

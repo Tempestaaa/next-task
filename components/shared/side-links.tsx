@@ -1,7 +1,7 @@
 "use client";
 
 import { sideLinks } from "@/lib/placeholders";
-import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

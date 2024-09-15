@@ -1,5 +1,10 @@
 import { iLink } from "@/lib/types";
-import { CheckCheckIcon, CircleXIcon, HomeIcon } from "lucide-react";
+import {
+  CheckCheckIcon,
+  CircleAlertIcon,
+  CircleXIcon,
+  HomeIcon,
+} from "lucide-react";
 
 // LINK
 export const sideLinks: iLink[] = [
@@ -7,6 +12,11 @@ export const sideLinks: iLink[] = [
     name: "Home",
     href: "/",
     icon: HomeIcon,
+  },
+  {
+    name: "Important",
+    href: "/important",
+    icon: CircleAlertIcon,
   },
   {
     name: "Complete",
